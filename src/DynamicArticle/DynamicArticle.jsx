@@ -5,7 +5,21 @@ const DynamicArticle = (props) => {
   return (
     <article>
       {/* add extra html with javascript attributes here */}
-      <HTMLText text={props.article.text} />
+      
+
+      <header>
+        <h1>{props.article.title}</h1>
+        <address>
+          by {props.article.author} (
+            <a href={props.article.authorEmail}>{props.article.authorEmail}</a>)
+          <br/>
+        </address>
+        <time datetime={props.article.displayDate}>{props.article.displayDate}</time>
+      </header>
+      <HTMLText text={props.article.text} />      
+
+
+
     </article>
   );
 };
