@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import DynamicArticle from "./DynamicArticle/DynamicArticle.jsx";
+import ArticleList from "./ArticleList/ArticleList.jsx"
 import { isEmpty } from "lodash";
+
 
 function App() {
   const [fetchedData, setFetchedData] = useState({});
@@ -22,14 +24,16 @@ function App() {
   return isEmpty(fetchedData) ? null : (
     <div className="App">
       <Switch>
-        <Route exact path={`/articlelist`}></Route>
+        <Route exact path={`/articlelist`}>
+          <ArticleList list = {Object.values(fetchedData)}></ArticleList>
+        </Route>
         <Route
           path={`/articlelist/:slug`}
           render={({ match }) => {
             // getting the parameters from the url and passing
             // down to the component as props
             console.log("this slug", match.params.slug);
-            return <div>Component</div>;
+            return <DynamicArticle article={Object(fetchedData)[match.params.slug]} />;
           }}
         />
         <Route>
@@ -37,6 +41,7 @@ function App() {
         </Route>
       </Switch>
     </div>
+
   );
 }
 
